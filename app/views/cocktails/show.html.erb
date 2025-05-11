@@ -1,0 +1,15 @@
+<h1>Cocktails#show</h1>
+<p>Find me in app/views/cocktails/show.html.erb</p>
+<div class="container mt-5">
+  <h2><%= @cocktail.name %></h2>
+  <p>Method: <%= @cocktail.method %></p>
+
+  <h4>Ingredients:</h4>
+  <ul>
+    <% @cocktail.cocktail_ingredients.each do |ci| %>
+      <li><%= ci.ingredient.name %> <%= ci.quantity %> ml</li>
+    <% end %>
+  </ul>
+
+  <%= link_to "Back to cocktails search", cocktails_path, class: "btn btn-outline-secondary mt-3" %>
+</div>

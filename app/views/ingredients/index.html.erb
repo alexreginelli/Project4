@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <h2>Ingredients</h2>
+  <%= form_with url: ingredients_path, method: :get, local: true, class: "row g-3 mb-4" do |form| %>
+    <div class="col-md-6">
+      <%= form.label :search, "Search by name" %>
+      <%= form.text_field :search, value: params[:search], class: "form-control" %>
+    </div>
+
+    <div class="col-md-4">
+      <%= form.label :category, "Search by category" %>
+      <%= form.select :category, options_for_select(@categories.unshift(""), selected: params[:category]), {}, class: "form-select" %>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+      <%= form.submit "Filter", class: "btn btn-outline-primary w-100" %>
+    </div>
+  <% end %>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table">
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @ingredients.each do |ingredient| %>
+        <tr>
+          <td><%= ingredient.name %></td>
+          <td><%= ingredient.category %></td>
+          <td><%= ingredient.description %></td>
+          <% if current_user.role.to_s.downcase == "manager" %>
+  <td>
+    <%= link_to "Edit", edit_ingredient_path(ingredient), class: "btn btn-sm btn-outline-secondary me-2" %>
+    <%= button_to "Delete", ingredient_path(ingredient), method: :delete, data: { confirm: "Delete ingredient?" }, class: "btn btn-sm btn-danger" %>
+  </td>
+<% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if current_user.role.downcase == "manager" %>
+    <%= link_to "Add a new ingredient", new_ingredient_path, class: "btn btn-outline-secondary mt-3" %>
+  <% end %>
+</div>

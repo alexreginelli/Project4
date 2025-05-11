@@ -1,0 +1,26 @@
+<h1>Games#show</h1>
+<p>Find me in app/views/games/show.html.erb</p>
+<h2>Guess ingredients for <%= @cocktail.name %></h2>
+<p>Method: <%= @cocktail.method.capitalize %></p>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+<% elsif flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
+<%= form_with url: submit_cocktail_guess_path(@cocktail), method: :post, local: true do %>
+  <% @ingredient_slots.times do |i| %>
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <%= label_tag "guesses[#{i}][ingredient_name]", "Ingredient" %>
+        <%= select_tag "guesses[#{i}][ingredient_name]", options_from_collection_for_select(@ingredients, :name, :name), include_blank: true, class: "form-select" %>
+      </div>
+      <div class="col-md-4">
+        <%= label_tag "guesses[#{i}][quantity]", "Quantity in ml" %>
+        <%= number_field_tag "guesses[#{i}][quantity]", nil, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+  <%= submit_tag "Verify", class: "btn btn-primary mt-3" %>
+<% end %>

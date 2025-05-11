@@ -1,0 +1,36 @@
+<h1>Cocktails#index</h1>
+<p>Find me in app/views/cocktails/index.html.erb</p>
+<div class="container mt-5">
+  <h2>Cocktail</h2>
+  <%= form_with url: cocktails_path, method: :get, local: true, class: "row g-3 mb-4" do |form| %>
+    <div class="col-md-10">
+      <%= form.label :search, "Search by name" %>
+      <%= form.text_field :search, value: params[:search], class: "form-control", placeholder: "cocktail name" %>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <%= form.submit "Search", class: "btn btn-outline-primary w-100" %>
+    </div>
+  <% end %>
+  <% if @cocktails.any? %>
+    <% @cocktails.each do |cocktail| %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4><%= link_to cocktail.name, cocktail_path(cocktail) %></h4>
+            <p>Method: <%= cocktail.method %></p>
+            <p>Ingredients:</p>
+            <ul>
+              <% cocktail.cocktail_ingredients.each do |ci| %>
+                  <li><%= ci.ingredient.name %> <%= ci.quantity %> ml</li>
+              <% end %>
+            </ul>
+          </div>
+          <% if current_user.role.to_s.downcase == "manager" %>
+          <%= link_to "Edit", edit_cocktail_path(cocktail), class: "btn btn-sm btn-outline-secondary me-2" %>
+              <%= button_to "Delete", cocktail_path(cocktail), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <% end %>
+        </div>
+  <% end %>
+  <% else %>
+    <p>No cocktail found.</p>
+  <% end %>
+</div>

@@ -1,0 +1,8 @@
+<h1>Games#index</h1>
+<p>Find me in app/views/games/index.html.erb</p>
+<h2>Select cocktail</h2>
+<ul>
+  <% @cocktails.each do |cocktail| %>
+    <li><%= link_to cocktail.name, play_cocktail_game_path(cocktail), class: "btn btn-outline-primary mb-2" %></li>
+  <% end %>
+</ul>

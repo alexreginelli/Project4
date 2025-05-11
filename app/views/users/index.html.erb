@@ -1,0 +1,54 @@
+<div>
+  <h2>All users</h2>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Created at</th>
+        <% if current_user.role.to_s.downcase == "admin" %>
+          <th>Actions</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.surname %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role.capitalize %></td>
+          <td><%= user.created_at.strftime("%d %b %Y") %></td>
+
+          <% if current_user.role.to_s.downcase == "admin" %>
+            <td>
+              <%= link_to "Edit", edit_user_path(user), class: "btn btn-sm btn-outline-secondary me-2" %>
+              <%= button_to "Delete", user_path(user), method: :delete,
+                  data: { confirm: "Are you sure you want to delete this user?" },
+                  class: "btn btn-sm btn-danger" %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+
+      <% if current_user.role.to_s.downcase == "admin" %>
+        <tr>
+          <%= form_with model: @user, url: users_path, local: true do |form| %>
+            <td><%= form.text_field :name, class: "form-control", placeholder: "Name" %></td>
+            <td><%= form.text_field :surname, class: "form-control", placeholder: "Surname" %></td>
+            <td><%= form.email_field :email, class: "form-control", placeholder: "Email" %></td>
+            <td><%= form.select :role, ["manager", "supervisor", "bartender", "waiter"], {}, class: "form-control" %></td>
+            <td colspan="2">
+              <%= form.password_field :password, placeholder: "Password", class: "form-control mb-1" %>
+              <%= form.password_field :pin, placeholder: "PIN (4 digits)", maxlength: 4, class: "form-control mb-1" %>
+              <%= form.submit "Create", class: "btn btn-primary mt-2 w-100" %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

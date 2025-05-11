@@ -1,0 +1,86 @@
+<h1>Cocktails#new</h1>
+<p>Find me in app/views/cocktails/new.html.erb</p>
+<div class="container mt-5">
+  <h2>Edit Cocktail</h2>
+
+  <%= form_with model: @cocktail, local: true, html: {id: "cocktail-form"} do |f| %>
+    <div class="mb-3">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :method %>
+      <%= f.select :method, ["Build", "Stir", "Shake", "Throw", "Muddle"], {}, class: "form-select" %>
+    </div>
+
+    <h4>Ingredients</h4>
+    <div id="ingredients">
+      <%= f.fields_for :cocktail_ingredients do |ci| %>
+        <div class="row mb-2 ingredient-fields">
+          <div class="col-md-5">
+            <%= ci.label :ingredient_id, "Ingredient" %>
+            <%= ci.collection_select :ingredient_id, @ingredients, :id, :name, {include_blank: true}, class: "form-select" %>
+          </div>
+          <div class="col-md-3">
+            <%= ci.label :quantity, "Quantity (ml)" %>
+            <%= ci.number_field :quantity, class: "form-control", min: 1 %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <button type="button" id="add-ingredient" class="btn btn-outline-secondary mt-2">Add Ingredient</button>
+
+    <div class="mt-4">
+      <%= f.submit "Update cocktail", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const addButton = document.getElementById("add-ingredient");
+    const container = document.getElementById("ingredients");
+    const form = document.getElementById("cocktail-form");
+    let index = <%= @cocktail.cocktail_ingredients.size %>;
+    const ingredientOptions = `<option value=""></option><%= options_from_collection_for_select(@ingredients, :id, :name) %>`;
+
+    addButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      const newIngredient = document.createElement("div");
+      newIngredient.classList.add("row", "mb-2", "ingredient-fields");
+      newIngredient.innerHTML = `
+        <div class="col-md-5">
+          <label>Ingredient</label>
+          <select name="cocktail[cocktail_ingredients_attributes][${index}][ingredient_id]" class="form-select">
+            ${ingredientOptions}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label>Quantity (ml)</label>
+          <input type="number" name="cocktail[cocktail_ingredients_attributes][${index}][quantity]" class="form-control" min="1">
+        </div>
+      `;
+      container.appendChild(newIngredient);
+      index++;
+    });
+
+    form.addEventListener("submit", (e) => {
+      const ingredientField = container.querySelectorAll(".ingredient-fields");
+      let isValid = true;
+      ingredientField.forEach(row => {
+        const select = row.querySelector("select");
+        const quantity = row.querySelector("input[type='number']");
+
+        if (!select.value || !quantity.value || parseInt(quantity.value) <= 0) {
+          isValid = false;
+        }
+      });
+      if (!isValid) {
+        e.preventDefault();
+        alert("Insert a valid input.");
+      }
+    });
+  });
+</script>

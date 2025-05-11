@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <h2>Edit Ingredient</h2>
+
+  <%= form_with model: @ingredient, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :category %>
+      <%= form.select :category, ["Soft drink", "Spirit", "Liqueur", "Beer"], {}, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: "form-control", rows: 3 %>
+    </div>
+
+    <%= form.submit "Update Ingredient", class: "btn btn-success mt-3" %>
+  <% end %>
+</div>

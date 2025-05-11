@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <h2>Edit User</h2>
+  <% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>Could not update user:</h4>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <%= form_with model: @user, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :surname %>
+      <%= form.text_field :surname, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :email %>
+      <%= form.email_field :email, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :role %>
+      <%= form.select :role, ["manager", "supervisor", "bartender", "waiter"], {}, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+  <%= form.label :password %>
+  <%= form.password_field :password, class: "form-control", placeholder: "(leave blank to keep current password)" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :pin %>
+  <%= form.password_field :pin, class: "form-control", placeholder: "(leave blank to keep current pin)", maxlength: 4 %>
+</div>
+
+    <%= form.submit "Update", class: "btn btn-success mt-3" %>
+  <% end %>
+</div>
