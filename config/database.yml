@@ -4,7 +4,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
+ # <<: *default
   database: barrails_db
   username: postgres
   password: password
@@ -12,7 +12,7 @@ development:
   port: 5433
 
 test:
-  <<: *default
+  #<<: *default
   database: barrails_db_test
   username: postgres
   password: password
