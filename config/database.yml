@@ -1,3 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: barrails_db
+  username: postgres
+  password: password
+  host: localhost
+  port: 5433
+
+test:
+  <<: *default
+  database: barrails_db_test
+  username: postgres
+  password: password
+  host: localhost
+  port: 5433
+
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
