@@ -20,4 +20,4 @@ test:
   port: 5433
 
 production:
-  database: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
