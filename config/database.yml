@@ -6,25 +6,35 @@ default: &default
 
 development:
   <<: *default
-  database: barrails_db
+  database: barrails_db # <--- REPLACE WITH YOUR LOCAL DEVELOPMENT DATABASE NAME
   username: postgres
-  password: password
+  password: password # <--- REPLACE WITH YOUR LOCAL POSTGRES PASSWORD
   host: localhost
   port: 5432
 
 test:
   <<: *default
-  database: barrails_db_test
+  database: barrails_db_test # <--- REPLACE WITH YOUR LOCAL TEST DATABASE NAME
   username: postgres
-  password: password
+  password: password # <--- REPLACE WITH YOUR LOCAL POSTGRES PASSWORD
   host: localhost
   port: 5432
 
 production:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  # Define the PRIMARY database connection for production using DATABASE_URL
+  # This uses the default settings and importantly, defines a reusable anchor
+  primary: &primary_database_connection # <--- THIS LINE IS CRUCIAL FOR THE ANCHOR
+    <<: *default # Inherit adapter, encoding, pool, timeout from default
+    url: <%= ENV['DATABASE_URL'] %> # Heroku's database URL
+
+  # NOW, define 'queue' and 'cache' as sub-sections of 'production'
+  # And make them inherit all connection details from the 'primary_database_connection' anchor
   queue:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+    <<: *primary_database_connection # <--- CORRECT INDENTATION & USAGE OF ANCHOR
+
   cache:
-  <<: *primary_database_connection
+    <<: *primary_database_connection # <--- CORRECT INDENTATION & USAGE OF ANCHOR
+    # You can add solid_cache specific options here if needed, e.g.:
+    # options:
+    #   max_size: <%= 256.megabytes %>
+    #   namespace: <%= Rails.env %>
