@@ -29,4 +29,4 @@ queue:
   url: <%= ENV['DATABASE_URL'] %>
 
 cache:
-  <<: *primary
+  <<: *primary_database_connection
