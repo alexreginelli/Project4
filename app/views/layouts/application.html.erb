@@ -29,7 +29,7 @@
   <div class="container-fluid flex-wrap">
     <%= link_to "Bar on Rails", dashboard_path, class: "navbar-brand text-light me-4 mb-2" %>
 
-    <% if current_user %>
+    <% if current_user.present? %>
       <div class="d-flex flex-wrap align-items-center">
         <%= link_to "Search cocktails", cocktails_path, class: "nav-link text-light me-3" %>
         <%= link_to "Search ingredient", ingredients_path, class: "nav-link text-light me-3" %>
