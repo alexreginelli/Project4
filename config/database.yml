@@ -23,10 +23,8 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-
-queue:
+  queue:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-
-cache:
+  cache:
   <<: *primary_database_connection
