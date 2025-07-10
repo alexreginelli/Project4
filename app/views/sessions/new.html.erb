@@ -14,6 +14,11 @@
     </div>
 
     <div class="form-group">
+      <%= form.label :pin %>
+      <%= form.password_field :pin, class: "form-control" %>      
+    </div>
+
+    <div class="form-group">
       <%= form.submit "Login", class: "btn btn-primary" %>     
     </div>
     <% end %>

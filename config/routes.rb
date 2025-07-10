@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "develop_cocktails/new"
+  get "develop_cocktails/create"
+  get "develop_cocktails/index"
+  get "develop_cocktails/show"
   get "games/index"
   get "games/show"
   get "games/submit"
@@ -28,6 +32,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "sessions#new"
   get "/login", to: "sessions#new"
+  delete "/logout", to: "sessions#destroy"
   get "/logout", to: "sessions#destroy"
   get "/dashboard", to: "dashboard#index"
   get "/users/new", to: "users#new", as: "new_user"
@@ -44,4 +49,5 @@ Rails.application.routes.draw do
   resources :cocktails, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   resources :ingredients, only: [:new, :create, :index, :edit, :update, :destroy]
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :develop_cocktails
 end

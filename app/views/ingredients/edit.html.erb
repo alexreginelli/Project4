@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <h2>Edit Ingredient</h2>
-
+<% unless pin_login? %>
   <%= form_with model: @ingredient, local: true do |form| %>
     <div class="mb-3">
       <%= form.label :name %>
@@ -9,14 +9,25 @@
 
     <div class="mb-3">
       <%= form.label :category %>
-      <%= form.select :category, ["Soft drink", "Spirit", "Liqueur", "Beer"], {}, class: "form-control" %>
+      <%= form.text_field :category, list: "category-options", class: "form-control", placeholder: "Category" %>
+      <datalist id="category-options">
+         <% Ingredient.distinct.pluck(:category).compact.each do |cat| %>
+            <option value="<%= cat %>">
+         <% end %>
+      </datalist>
     </div>
 
     <div class="mb-3">
       <%= form.label :description %>
-      <%= form.text_area :description, class: "form-control", rows: 3 %>
+       <%= form.text_field :description, class: "form-control", rows: 3 %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :alcohol_percentage %>
+      <%= form.number_field :alcohol_percentage, class: "form-control" %>
     </div>
 
     <%= form.submit "Update Ingredient", class: "btn btn-success mt-3" %>
+  <% end %>
   <% end %>
 </div>

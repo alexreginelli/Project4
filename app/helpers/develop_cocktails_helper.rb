@@ -1,0 +1,2 @@
+module DevelopCocktailsHelper
+end

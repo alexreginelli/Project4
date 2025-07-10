@@ -1,22 +1,21 @@
-<h1>Cocktails#new</h1>
-<p>Find me in app/views/cocktails/new.html.erb</p>
 <div class="container mt-5">
-  <h2>Edit Cocktail</h2>
+<h1>DevelopCocktails#new</h1>
+<p>Find me in app/views/develop_cocktails/new.html.erb</p>
 <% unless pin_login? %>
-  <%= form_with model: @cocktail, local: true, html: {id: "cocktail-form"} do |f| %>
+<%= form_with model: @develop_cocktail, local: true do |f| %>
     <div class="mb-3">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= f.label :method %>
-      <%= f.select :method, ["Build", "Stir", "Shake", "Throw", "Muddle"], {}, class: "form-select" %>
+      <%= f.label :glass, "Glass" %>
+      <%= f.text_field :glass, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= f.label :glass, "Glass" %>
-      <%= f.text_field :glass, class: "form-control" %>
+      <%= f.label :method %>
+      <%= f.select :method, ["Build", "Stir", "Shake", "Throw", "Muddle"], {}, class: "form-select" %>
     </div>
 
     <div class="mb-3">
@@ -29,24 +28,18 @@
       <%= f.text_field :garnish, class: "form-control" %>
     </div>
 
-    <h4>Ingredients</h4>
+    <h4>Ingredients</h4> <!--selection of ingredients from list -->
     <div id="ingredients">
-      <%= f.fields_for :cocktail_ingredients do |ci| %>
+      <%= f.fields_for :develop_cocktail_ingredients do |ci| %>
         <div class="row mb-2 ingredient-fields">
           <div class="col-md-5">
             <%= ci.label :ingredient_id, "Ingredient" %>
             <%= ci.collection_select :ingredient_id, @ingredients, :id, :name, {include_blank: true}, class: "form-select" %>
           </div>
           <div class="col-md-3">
-            <%= ci.label :quantity, "Quantity (ml)" %>
+            <%= ci.label :quantity, "Quantity in ml" %>
             <%= ci.number_field :quantity, class: "form-control", min: 0, step: 0.01 %>
           </div>
-          <div class="col-md-2">
-      <div class="form-check mt-4">
-        <%= ci.check_box :_destroy, class: "form-check-input" %>
-        <%= ci.label :_destroy, "Remove", class: "form-check-label" %>
-      </div>
-    </div>
         </div>
       <% end %>
     </div>
@@ -54,19 +47,20 @@
     <button type="button" id="add-ingredient" class="btn btn-outline-secondary mt-2">Add Ingredient</button>
 
     <div class="mt-4">
-      <%= f.submit "Update cocktail", class: "btn btn-success" %>
+      <%= f.submit "Create cocktail", class: "btn btn-success" %>
     </div>
   <% end %>
+  <% end %>
 </div>
-<% end %>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+<script> <!--adding one more ingredient -->
+  document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("add-ingredient");
     const container = document.getElementById("ingredients");
     const form = document.getElementById("cocktail-form");
-    let index = <%= @cocktail.cocktail_ingredients.size %>;
+    let index = <%= @develop_cocktail.develop_cocktail_ingredients.size %>;
     const ingredientOptions = `<option value=""></option><%= options_from_collection_for_select(@ingredients, :id, :name) %>`;
+
     addButton.addEventListener("click", (e) => {
       e.preventDefault();
       const newIngredient = document.createElement("div");

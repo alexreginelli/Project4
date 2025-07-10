@@ -1,5 +1,5 @@
 class IngredientsController < ApplicationController
-  before_action :require_manager, only: [:new, :create, :index, :edit, :update, :destroy]
+  before_action :require_manager, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @categories = Ingredient.distinct.pluck(:category)
@@ -51,7 +51,7 @@ class IngredientsController < ApplicationController
   end
 
   def ingredient_params
-    params.require(:ingredient).permit(:name, :category, :description)
+    params.require(:ingredient).permit(:name, :category, :description, :alcohol_percentage)
   end
 
   def require_manager

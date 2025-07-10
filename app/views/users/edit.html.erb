@@ -1,5 +1,6 @@
 <div class="container mt-5">
   <h2>Edit User</h2>
+  <% if current_user.role.downcase == "admin" %>
   <% if @user.errors.any? %>
   <div class="alert alert-danger">
     <h4>Could not update user:</h4>
@@ -34,14 +35,15 @@
 
     <div class="mb-3">
   <%= form.label :password %>
-  <%= form.password_field :password, class: "form-control", placeholder: "(leave blank to keep current password)" %>
+  <%= form.password_field :password, class: "form-control" %>
 </div>
 
 <div class="mb-3">
   <%= form.label :pin %>
-  <%= form.password_field :pin, class: "form-control", placeholder: "(leave blank to keep current pin)", maxlength: 4 %>
+  <%= form.password_field :pin, class: "form-control", maxlength: 6 %>
 </div>
 
     <%= form.submit "Update", class: "btn btn-success mt-3" %>
+  <% end %>
   <% end %>
 </div>

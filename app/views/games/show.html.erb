@@ -1,5 +1,6 @@
 <h1>Games#show</h1>
 <p>Find me in app/views/games/show.html.erb</p>
+<% unless pin_login? %>
 <h2>Guess ingredients for <%= @cocktail.name %></h2>
 <p>Method: <%= @cocktail.method.capitalize %></p>
 
@@ -23,4 +24,5 @@
     </div>
   <% end %>
   <%= submit_tag "Verify", class: "btn btn-primary mt-3" %>
+<% end %>
 <% end %>

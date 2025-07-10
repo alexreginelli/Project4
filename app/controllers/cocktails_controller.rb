@@ -6,11 +6,15 @@ class CocktailsController < ApplicationController
     if params[:search].present?
       @cocktails = @cocktails.where("name ILIKE ?", "%#{params[:search]}%")
     end
+
+    if params[:ingredient].present?
+      @cocktails = @cocktails.joins(:ingredients).where("ingredients.name ILIKE ?", "%#{params[:ingredient]}%").distinct
+    end
   end
 
   def new
     @cocktail = Cocktail.new
-    2.times {@cocktail.cocktail_ingredients.build} #2 ingredients is the amount of ingredients for a cocktail
+    2.times {@cocktail.cocktail_ingredients.build} #2 ingredients is the minimum amount of ingredients for a cocktail
     @ingredients = Ingredient.all
   end
 
@@ -52,7 +56,7 @@ class CocktailsController < ApplicationController
   private
 
   def cocktail_params
-    params.require(:cocktail).permit(:name, :method, cocktail_ingredients_attributes: [:id, :ingredient_id, :quantity, :_destroy])
+    params.require(:cocktail).permit(:name, :glass, :method, :ice, :garnish, cocktail_ingredients_attributes: [:id, :ingredient_id, :quantity, :_destroy])
   end
 
   def require_manager

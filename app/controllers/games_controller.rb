@@ -17,7 +17,7 @@ class GamesController < ApplicationController
         quantity: ci.quantity.to_f
       }
     end
-    guesses = params[:guesses].values.map do |g|
+    guesses = params[:guesses].values.map do |g| #user input
       {
         name: g[:ingredient_name],
         quantity: g[:quantity].to_f
@@ -25,7 +25,7 @@ class GamesController < ApplicationController
     end
     match = correct.all? do |c|
       guesses.any? do |g|
-        g[:name] == c[:name] && (g[:quantity] - c[:quantity]).abs <= 2
+        g[:name] == c[:name] && g[:quantity] - c[:quantity]
       end
     end
     if match

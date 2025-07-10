@@ -2,12 +2,15 @@
 <p>Find me in app/views/cocktails/show.html.erb</p>
 <div class="container mt-5">
   <h2><%= @cocktail.name %></h2>
+  <p>Glass: <%= @cocktail.glass %></p>
   <p>Method: <%= @cocktail.method %></p>
+  <p>Ice: <%= @cocktail.ice.presence || "none" %></p>
+  <p>Garnish: <%= @cocktail.garnish %></p>
 
   <h4>Ingredients:</h4>
   <ul>
     <% @cocktail.cocktail_ingredients.each do |ci| %>
-      <li><%= ci.ingredient.name %> <%= ci.quantity %> ml</li>
+      <li><%= link_to ci.ingredient.name, ingredients_path(search: ci.ingredient.name) %> <%= ci.quantity %> ml</li>
     <% end %>
   </ul>
 
