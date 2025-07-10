@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to dashboard_path, notice: "User created successfully."
     else
-      render :new, alert: "Error."
+      render :new, status: :unprocessable_entity, alert: "Error."
     end
   end
 
@@ -41,7 +41,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :surname, :email, :password, :pin, :role)
+    current_user&.role == "admin"
+      params.require(:user).permit(:name, :surname, :email, :password, :pin, :role)
   end
 
   def require_admin
