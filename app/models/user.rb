@@ -6,7 +6,7 @@ class User < ApplicationRecord
     validates :pin, presence: true, uniqueness: true, length: {is: 6}, format: { with: /\A[0-9]{6}\z/, message: "Insert 6 digits" }, if: :validate_pin?
 
     private
-    def validate_pin? #for pin logins
+    def validate_pin?
         pin.present?
     end
 end

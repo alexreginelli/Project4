@@ -21,7 +21,7 @@ gem "jbuilder"
 #Secure bcrypt
 gem "bcrypt"
 #Bootstrap
-gem "bootstrap"
+#gem "bootstrap"
 gem "jquery-rails"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -72,3 +72,5 @@ end
 gem "cssbundling-rails", "~> 1.4"
 
 
+
+gem "jsbundling-rails", "~> 1.3"

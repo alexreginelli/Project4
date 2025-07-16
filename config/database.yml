@@ -10,7 +10,8 @@ development:
   username: postgres
   password: password # <--- REPLACE WITH YOUR LOCAL POSTGRES PASSWORD
   host: localhost
-  port: 5432
+  port: 5433
+  #port: 5432
 
 test:
   <<: *default
@@ -18,7 +19,8 @@ test:
   username: postgres
   password: password # <--- REPLACE WITH YOUR LOCAL POSTGRES PASSWORD
   host: localhost
-  port: 5432
+  port: 5433
+  #port: 5432
 
 production:
   # Define the PRIMARY database connection for production using DATABASE_URL
