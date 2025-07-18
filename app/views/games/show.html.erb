@@ -1,8 +1,6 @@
-<h1>Games#show</h1>
-<p>Find me in app/views/games/show.html.erb</p>
+<h1>Game</h1>
 <% unless pin_login? %>
 <h2>Guess ingredients for <%= @cocktail.name %></h2>
-<p>Method: <%= @cocktail.method.capitalize %></p>
 
 <% if flash[:notice] %>
   <div class="alert alert-success"><%= flash[:notice] %></div>

@@ -25,7 +25,7 @@ class GamesController < ApplicationController
     end
     match = correct.all? do |c|
       guesses.any? do |g|
-        g[:name] == c[:name] && g[:quantity] - c[:quantity]
+        g[:name] == c[:name] && g[:quantity] == c[:quantity]
       end
     end
     if match
@@ -33,6 +33,6 @@ class GamesController < ApplicationController
     else
       flash[:alert] = "Wrong."
     end
-    redirect_to play_cocktail_game_path(@cocktail)
+    redirect_to cocktail_game_path
   end
 end
