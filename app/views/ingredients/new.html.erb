@@ -1,12 +1,7 @@
+<h1>Add a new ingredient</h1>
 <div class="container mt-5">
-
-<h1>Ingredients#new</h1>
-<p>Find me in app/views/ingredients/new.html.erb</p>
-
 <% unless pin_login? %>
 <div>
-
-  <h2>Add new ingredient</h2>
   <%= form_with model: @ingredient, url: ingredients_path, local: true do |form| %>
     <div class="form-group">
       <%= form.label :name%>
@@ -15,7 +10,7 @@
 
     <div class="form-group mt-3">
       <%= form.label :category%>
-      <%= form.text_field :category, list: "category-options", class: "form-control", placeholder: "Category" %>
+      <%= form.text_field :category, list: "category-options", class: "form-control" %>
       <datalist id="category-options">
          <% Ingredient.distinct.pluck(:category).compact.each do |cat| %>
             <option value="<%= cat %>">

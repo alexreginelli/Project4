@@ -1,5 +1,6 @@
+<h1>Edit Ingredient</h1>
 <div class="container mt-5">
-  <h2>Edit Ingredient</h2>
+
 <% unless pin_login? %>
   <%= form_with model: @ingredient, local: true do |form| %>
     <div class="mb-3">
@@ -27,7 +28,7 @@
       <%= form.number_field :alcohol_percentage, class: "form-control" %>
     </div>
 
-    <%= form.submit "Update Ingredient", class: "btn btn-success mt-3" %>
+    <%= form.submit "Update ingredient", class: "btn btn-success mt-3" %>
   <% end %>
   <% end %>
 </div>

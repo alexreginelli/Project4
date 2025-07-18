@@ -1,8 +1,7 @@
-<h1>Cocktails#new</h1>
-<p>Find me in app/views/cocktails/new.html.erb</p>
+<h1>Create a cocktail</h1>
 <div class="container mt-5">
 <% unless pin_login? %>
-  <h2>Create Cocktail</h2>
+  
 
   <%= form_with model: @cocktail, local: true, html: {id: "cocktail-form"} do |f| %>
     <div class="mb-3">
@@ -46,7 +45,7 @@
       <% end %>
     </div>
 
-    <button type="button" id="add-ingredient" class="btn btn-outline-secondary mt-2">Add Ingredient</button>
+    <button type="button" id="add-ingredient" class="btn btn-outline-secondary mt-2">Add ingredient</button>
 
     <div class="mt-4">
       <%= f.submit "Create cocktail", class: "btn btn-success" %>

@@ -1,5 +1,4 @@
-<h1>Cocktails#show</h1>
-<p>Find me in app/views/cocktails/show.html.erb</p>
+<h1>Cocktail:</h1>
 <div class="container mt-5">
   <h2><%= @cocktail.name %></h2>
   <p>Glass: <%= @cocktail.glass %></p>
@@ -14,5 +13,5 @@
     <% end %>
   </ul>
 
-  <%= link_to "Back to cocktails search", cocktails_path, class: "btn btn-outline-secondary mt-3" %>
+  <%= link_to "Back to search", cocktails_path, class: "btn btn-outline-secondary mt-3" %>
 </div>
