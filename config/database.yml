@@ -23,9 +23,9 @@ test:
   #port: 5432
 
 production:
-  primary: &primary_database_connection # <--- THIS LINE IS CRUCIAL FOR THE ANCHOR
-    <<: *default # Inherit adapter, encoding, pool, timeout from default
-    url: <%= ENV['DATABASE_URL'] %> # Heroku's database URL
+  primary: &primary_database_connection 
+    <<: *default 
+    url: <%= ENV['DATABASE_URL'] %> 
 
   queue:
     <<: *primary_database_connection
