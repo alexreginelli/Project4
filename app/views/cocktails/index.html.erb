@@ -1,20 +1,19 @@
-<h1>Cocktails list</h1>
+<h1>Cocktail list</h1>
 <div class="container mt-5">
   <h2>Search</h2>
   <%= form_with url: cocktails_path, method: :get, local: true, class: "row g-3 mb-4" do |form| %>
-    <div class="col-md-5">
+    <div class="col-md-5"> <!-- search name input -->
       <%= form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search by name" %>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5"> <!-- search by ingredient input -->
       <%= form.text_field :ingredient, value: params[:ingredient], class: "form-control", placeholder: "Search by ingredient" %>
     </div>
     <div class="col-md-2 d-flex align-items-end">
       <%= form.submit "Search", class: "btn btn-outline-primary w-100" %>
     </div>
-    
   <% end %>
   <% if @cocktails.any? %>
-    <% @cocktails.each do |cocktail| %>
+    <% @cocktails.each do |cocktail| %> <!-- show cocktails or filtered cocktail -->
         <div class="card mb-3">
           <div class="card-body">
             <h4><%= link_to cocktail.name, cocktail_path(cocktail) %></h4>
@@ -35,9 +34,8 @@
               <%= button_to "Delete", cocktail_path(cocktail), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
             </div>
           <% end %>
+          <% end %>
           </div>
-          
-<% end %>
         </div>
   <% end %>
   <% else %>

@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-  def new
-  end
-
+  
    def create
     if params[:pin].present? && params[:email].blank?
       #pin login

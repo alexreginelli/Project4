@@ -25,45 +25,49 @@
   <body>
     
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4">
-  <div class="container-fluid flex-wrap">
-    <%= link_to "Bar on Rails", dashboard_path, class: "navbar-brand text-light me-4 mb-2" %>
+    <div class="container-fluid flex-wrap">
+      <%= link_to "Bar on Rails", dashboard_path, class: "navbar-brand text-light me-4 mb-2" %> <!-- go back to homepage -->
 
-    <% if current_user.present? %>
-      <div class="d-flex flex-wrap align-items-center">
-        <%= link_to "Search cocktails", cocktails_path, class: "nav-link text-light me-3" %>
-        <%= link_to "Search ingredient", ingredients_path, class: "nav-link text-light me-3" %>
+      <% if current_user.present? %> <!-- always available links -->
+        <div class="d-flex flex-wrap align-items-center">
+          <%= link_to "Search cocktails", cocktails_path, class: "nav-link text-light me-3" %>
+          <%= link_to "Search ingredient", ingredients_path, class: "nav-link text-light me-3" %>
 
-        <% unless pin_login? %>
-          <% if current_user.role.downcase == "manager" %>
-            <%= link_to "Create cocktail", new_cocktail_path, class: "nav-link text-light me-3" %>
-            <%= link_to "Add ingredient", new_ingredient_path, class: "nav-link text-light me-3" %>
-            <% if ["manager", "supervisor"].include?(current_user.role.downcase) %>
+          <% unless pin_login? %> <!-- links password login -->
+            <%= link_to "Game", cocktail_game_path, class: "nav-link text-light me-3" %>
+
+            <% if current_user.role.downcase == "manager" || current_user.role.downcase == "supervisor" %> <!-- manager and supervisor development cocktail -->
               <%= link_to "Development", develop_cocktails_path, class: "nav-link text-light me-3" %>
+            <% end %>
+
+            <% if current_user.role.downcase == "manager" %> <!-- only for manager links -->
+              <%= link_to "Create cocktail", new_cocktail_path, class: "nav-link text-light me-3" %>
+              <%= link_to "Add ingredient", new_ingredient_path, class: "nav-link text-light me-3" %>
+            <% end %>
+
+            <% if current_user.role.downcase == "admin" %>
+              <%= link_to "View users", users_path, class: "nav-link text-light me-3" %>
             <% end %>
           <% end %>
 
-          <% if current_user.role.downcase == "admin" %>
-            <%= link_to "View users", users_path, class: "nav-link text-light me-3" %>
-          <% end %>
-        <% end %>
+          <%= link_to "Logout", logout_path, method: :delete, class: "nav-link text-light me-3" %>
+        </div>
+      <% end %>
+    </div>
+  </nav>
 
-        <%= link_to "Logout", logout_path, method: :delete, class: "nav-link text-light me-3" %>
-      </div>
-    <% end %>
-  </div>
-</nav>
-
-    <div class="main-content container mt-5 mb-5">
+  <div class="main-content container mt-5 mb-5">
     <div class="container mt-3">
-    <% if notice %>
-      <div class="alert alert-success"><%= notice %></div>
-    <% end %>
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
 
-    <% if alert %>
-      <div class="alert alert-danger"><%= alert %></div>
-    <% end %>
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
+    </div>
   <%= yield %>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"integrity="sha384-pE3EoOZ3AVrLkkR1V49aM6kLkz/kVy1qHnxsL+Zq0wZ7DhIKy5XlpmrNJoTkS9gZ" crossorigin="anonymous"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"integrity="sha384-pE3EoOZ3AVrLkkR1V49aM6kLkz/kVy1qHnxsL+Zq0wZ7DhIKy5XlpmrNJoTkS9gZ" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -1,22 +1,22 @@
 <h1>Game</h1>
 <% unless pin_login? %>
 <h2>Guess ingredients for <%= @cocktail.name %></h2>
-
+<!-- show outcome -->
 <% if flash[:notice] %>
   <div class="alert alert-success"><%= flash[:notice] %></div>
 <% elsif flash[:alert] %>
   <div class="alert alert-danger"><%= flash[:alert] %></div>
 <% end %>
-
+ <!-- user input -->
 <%= form_with url: submit_cocktail_guess_path(@cocktail), method: :post, local: true do %>
   <% @ingredient_slots.times do |i| %>
     <div class="row mb-2">
       <div class="col-md-6">
-        <%= label_tag "guesses[#{i}][ingredient_name]", "Ingredient" %>
+        <%= label_tag  "Ingredient" %>
         <%= select_tag "guesses[#{i}][ingredient_name]", options_from_collection_for_select(@ingredients, :name, :name), include_blank: true, class: "form-select" %>
       </div>
       <div class="col-md-4">
-        <%= label_tag "guesses[#{i}][quantity]", "Quantity in ml" %>
+        <%= label_tag "Quantity in ml" %>
         <%= number_field_tag "guesses[#{i}][quantity]", nil, class: "form-control" %>
       </div>
     </div>

@@ -4,24 +4,26 @@
 -->
 <div class="container mt-5 text-center">
   <h3>Welcome, <%= @user.name %>. Role: <%= @user.role %></h3>
-  <% unless pin_login? %>
+  <% unless pin_login? %> <!-- all function except search -->
+
     <% if current_user.role.downcase == "admin" %>
       <%= link_to "Create user", new_user_path, class: "btn btn-outline-primary mt-3" %>
-    <% end %>
-    <% if current_user.role == "admin" %>
       <%= link_to "View users", users_path, class: "btn btn-outline-primary mt-3" %>
     <% end %>
+
     <% if current_user.role.downcase == "manager" %>
       <%= link_to "Add ingredient", new_ingredient_path, class: "btn btn-outline-primary mt-3" %>
       <%= link_to "Create cocktail", new_cocktail_path, class: "btn btn-outline-primary mt-3" %>
     <% end %>
 
-<% if current_user.role.downcase == "manager" || current_user.role.downcase == "supervisor" %>
+    <% if current_user.role.downcase == "manager" || current_user.role.downcase == "supervisor" %>
       <%= link_to "Development", develop_cocktails_path, class: "btn btn-outline-primary mt-3" %>
     <% end %>
 
     <%= link_to "Game", cocktail_game_path, class: "btn btn-outline-primary mt-3" %>
   <% end %>
+
+  <!-- all users can perform search -->
   <%= link_to "Search ingredients", ingredients_path, class: "btn btn-outline-primary mt-3" %>
-    <%= link_to "Search cocktails", cocktails_path, class: "btn btn-outline-primary mt-3" %>
+  <%= link_to "Search cocktails", cocktails_path, class: "btn btn-outline-primary mt-3" %>
 </div>

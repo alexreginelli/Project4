@@ -1,35 +1,33 @@
 <h1>Cocktail development</h1>
 <div class="container mt-5">
 <% unless pin_login? %>
-<% if @develop_cocktails.any? %>
-<% @develop_cocktails.each do |develop_cocktail| %>
-  <div class="card mb-3">
-    <div class="card-body">
-      <h4><%= develop_cocktail.name %></h4>
-      <p>Method: <%= develop_cocktail.method %></p>
-      <p>Glass: <%= develop_cocktail.glass %></p>
-      <p>Ice: <%= develop_cocktail.ice.presence || "none" %></p>
-      <p>Garnish: <%= develop_cocktail.garnish.presence || "none" %></p>
-      <p>Ingredients:</p>
-      <ul>
-        <% develop_cocktail.develop_cocktail_ingredients.each do |ci| %>
-          <li><%= ci.ingredient.name %> <%= ci.quantity %> ml</li>
-        <% end %>
-      </ul>
-      <% if current_user.role.to_s.downcase == "manager" || current_user.role.to_s.downcase == "supervisor" %>
-          <%= link_to "Edit", edit_develop_cocktail_path(develop_cocktail), class: "btn btn-sm btn-outline-secondary me-2" %>
-              <%= button_to "Delete", develop_cocktail_path(develop_cocktail), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+  <% if @develop_cocktails.any? %>
+    <% @develop_cocktails.each do |develop_cocktail| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h4><%= develop_cocktail.name %></h4>
+          <p>Method: <%= develop_cocktail.method %></p>
+          <p>Glass: <%= develop_cocktail.glass %></p>
+          <p>Ice: <%= develop_cocktail.ice.presence || "none" %></p>
+          <p>Garnish: <%= develop_cocktail.garnish.presence || "none" %></p>
+          <p>Ingredients:</p>
+          <ul>
+            <% develop_cocktail.develop_cocktail_ingredients.each do |ci| %>
+              <li><%= ci.ingredient.name %> <%= ci.quantity %> ml</li>
+            <% end %>
+          </ul>
+          <% if current_user.role.to_s.downcase == "manager" || current_user.role.to_s.downcase == "supervisor" %>
+            <%= link_to "Edit", edit_develop_cocktail_path(develop_cocktail), class: "btn btn-sm btn-outline-secondary me-2" %>
+            <%= button_to "Delete", develop_cocktail_path(develop_cocktail), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
           <% end %>
-    </div>
-  </div>
-<% end %>
-<% else %>
-<p>No developed cocktails yet.</p>
-<% end %>
-<% unless pin_login? %>
-  <% if current_user.role.downcase == "manager" %>
+        </div>
+      </div>
+    <% end %>
+    <% else %>
+      <p>No developed cocktails yet.</p>
+    <% end %>
+  <% if current_user.role.downcase == "manager" || current_user.role.downcase == "supervisor" %>
     <%= link_to "Develop cocktail", new_develop_cocktail_path, class: "btn btn-outline-secondary mt-3" %>
   <% end %>
-  <% end %>
-  <% end %>
+<% end %>
 </div>

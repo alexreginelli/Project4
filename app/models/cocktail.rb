@@ -7,7 +7,7 @@ class Cocktail < ApplicationRecord
 
     def validate_two_ingredient
     if cocktail_ingredients.size < 2
-      errors.add(:base, "Cocktail must have at least two ingredients")
+      errors.add(:base, "Cocktail must have at least two ingredients.")
     end
   end
 end

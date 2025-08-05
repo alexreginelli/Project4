@@ -2,7 +2,7 @@ class IngredientsController < ApplicationController
   before_action :require_manager, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @categories = Ingredient.distinct.pluck(:category)
+    @categories = Ingredient.distinct.pluck(:category) #get desired attribute
     @ingredients = Ingredient.all
   
     if params[:search].present?

@@ -10,7 +10,7 @@ development:
   username: postgres
   password: password
   host: localhost
-  port: 5433
+  port: 5433 #fix port number
   #port: 5432
 
 test:
@@ -19,7 +19,7 @@ test:
   username: postgres
   password: password
   host: localhost
-  port: 5433
+  port: 5433 
   #port: 5432
 
 production:

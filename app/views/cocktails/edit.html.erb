@@ -1,35 +1,33 @@
 <h1>Edit cocktail</h1>
-<p>Find me in app/views/cocktails/new.html.erb</p>
 <div class="container mt-5">
-  <h2></h2>
 <% unless pin_login? %>
   <%= form_with model: @cocktail, local: true, html: {id: "cocktail-form"} do |f| %>
-    <div class="mb-3">
+    <div class="mb-3"> <!-- edit name -->
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3"> <!-- edit method -->
       <%= f.label :method %>
       <%= f.select :method, ["Build", "Stir", "Shake", "Throw", "Muddle"], {}, class: "form-select" %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3"> <!-- edit claass -->
       <%= f.label :glass, "Glass" %>
       <%= f.text_field :glass, class: "form-control" %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3">  <!-- edit ice -->
       <%= f.label :ice, "Ice" %>
       <%= f.text_field :ice, class: "form-control" %>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3"> <!-- edit garnish -->
       <%= f.label :garnish, "Garnish" %>
       <%= f.text_field :garnish, class: "form-control" %>
     </div>
 
-    <h4>Ingredients</h4>
+    <h4>Ingredients</h4> <!-- edit ingredients -->
     <div id="ingredients">
       <%= f.fields_for :cocktail_ingredients do |ci| %>
         <div class="row mb-2 ingredient-fields">

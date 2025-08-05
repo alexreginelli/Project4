@@ -33,21 +33,20 @@
           <td><%= ingredient.description %></td>
           <td><%= ingredient.alcohol_percentage %></td>
           <% if current_user.role.to_s.downcase == "manager" %>
-          <% unless pin_login? %>
-  <td>
-  
-    <%= link_to "Edit", edit_ingredient_path(ingredient), class: "btn btn-sm btn-outline-secondary me-2" %>
-    <%= button_to "Delete", ingredient_path(ingredient), method: :delete, data: { confirm: "Delete ingredient?" }, class: "btn btn-sm btn-danger" %>
-  </td>
-  <% end %>
-<% end %>
+            <% unless pin_login? %>
+              <td>
+                <%= link_to "Edit", edit_ingredient_path(ingredient), class: "btn btn-sm btn-outline-secondary me-2" %>
+                <%= button_to "Delete", ingredient_path(ingredient), method: :delete, data: { confirm: "Delete ingredient?" }, class: "btn btn-sm btn-danger" %>
+              </td>
+            <% end %>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
-<% unless pin_login? %>
-  <% if current_user.role.downcase == "manager" %>
-    <%= link_to "Add a new ingredient", new_ingredient_path, class: "btn btn-outline-secondary mt-3" %>
-  <% end %>
+  <% unless pin_login? %>
+    <% if current_user.role.downcase == "manager" %>
+      <%= link_to "Add a new ingredient", new_ingredient_path, class: "btn btn-outline-secondary mt-3" %>
+    <% end %>
   <% end %>
 </div>

@@ -1,6 +1,6 @@
 <h1>Game</h1>
 <% unless pin_login? %>
-<p>Select a cocktail</p>
+<p>Select a cocktail</p> <!-- list of cocktails for test -->
 <ul>
   <% @cocktails.each do |cocktail| %>
     <li><%= link_to cocktail.name, play_cocktail_game_path(cocktail), class: "btn btn-outline-primary mb-2" %></li>

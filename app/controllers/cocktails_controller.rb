@@ -1,10 +1,10 @@
 class CocktailsController < ApplicationController
   before_action :require_manager, only: [:new, :create, :edit, :update, :destroy]
 
-  def index
+  def index #list of cocktails and filter
     @cocktails = Cocktail.includes(:ingredients)
     if params[:search].present?
-      @cocktails = @cocktails.where("name ILIKE ?", "%#{params[:search]}%")
+      @cocktails = @cocktails.where("name ILIKE ?", "%#{params[:search]}%") #sanitise input field
     end
 
     if params[:ingredient].present?
@@ -12,7 +12,7 @@ class CocktailsController < ApplicationController
     end
   end
 
-  def new
+  def new #prepare for new cocktail
     @cocktail = Cocktail.new
     2.times {@cocktail.cocktail_ingredients.build} #2 ingredients is the minimum amount of ingredients for a cocktail
     @ingredients = Ingredient.all
@@ -32,7 +32,7 @@ class CocktailsController < ApplicationController
     @cocktail = Cocktail.find(params[:id])
   end
 
-  def edit
+  def edit #set for edit
     @cocktail = Cocktail.find(params[:id])
     @ingredients = Ingredient.all
   end

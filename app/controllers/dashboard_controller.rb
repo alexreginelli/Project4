@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
     end
   end
 
-  def current_user #show user level
+  def current_user #show user security level
     unless @current_user
       @current_user = User.find_by(id: session[:user_id])
     end
